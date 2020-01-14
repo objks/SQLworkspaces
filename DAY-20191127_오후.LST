@@ -1,0 +1,386 @@
+SQL> select * from tab;
+
+TNAME                                                        TABTYPE            
+------------------------------------------------------------ --------------     
+ CLUSTERID                                                                      
+----------                                                                      
+BONUS                                                        TABLE              
+                                                                                
+                                                                                
+CK_TAB2                                                      TABLE              
+                                                                                
+                                                                                
+DEPT                                                         TABLE              
+                                                                                
+                                                                                
+
+TNAME                                                        TABTYPE            
+------------------------------------------------------------ --------------     
+ CLUSTERID                                                                      
+----------                                                                      
+DEPT_TAB1                                                    TABLE              
+                                                                                
+                                                                                
+EMP                                                          TABLE              
+                                                                                
+                                                                                
+MEMBER                                                       TABLE              
+                                                                                
+                                                                                
+
+TNAME                                                        TABTYPE            
+------------------------------------------------------------ --------------     
+ CLUSTERID                                                                      
+----------                                                                      
+POST                                                         TABLE              
+                                                                                
+                                                                                
+SALGRADE                                                     TABLE              
+                                                                                
+                                                                                
+TEST_TAP1                                                    TABLE              
+                                                                                
+                                                                                
+
+TNAME                                                        TABTYPE            
+------------------------------------------------------------ --------------     
+ CLUSTERID                                                                      
+----------                                                                      
+TIMESTAMP_TEST                                               TABLE              
+                                                                                
+                                                                                
+
+10 rows selected.
+
+SQL> col tname format a15
+SQL> r
+  1* select * from tab
+
+TNAME           TABTYPE         CLUSTERID                                       
+--------------- -------------- ----------                                       
+BONUS           TABLE                                                           
+CK_TAB2         TABLE                                                           
+DEPT            TABLE                                                           
+DEPT_TAB1       TABLE                                                           
+EMP             TABLE                                                           
+MEMBER          TABLE                                                           
+POST            TABLE                                                           
+SALGRADE        TABLE                                                           
+TEST_TAP1       TABLE                                                           
+TIMESTAMP_TEST  TABLE                                                           
+
+10 rows selected.
+
+SQL> set linesize 140
+SQL> show user
+USER is "SCOTT"
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                 
+---------- ---------------------------- --------------------------                                                                          
+        10 ACCOUNTING                   NEW YORK                                                                                            
+        20 RESEARCH                     DALLAS                                                                                              
+        30 SALES                        CHICAGO                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into dept(
+  2  	deptno, dname
+  3  )
+  4* values (50, 'Development')
+SQL> /
+
+1 row created.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                 
+---------- ---------------------------- --------------------------                                                                          
+        50 Development                                                                                                                      
+        10 ACCOUNTING                   NEW YORK                                                                                            
+        20 RESEARCH                     DALLAS                                                                                              
+        30 SALES                        CHICAGO                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into dept(deptno, dname, loc)
+  2* values (0, '',NULL)
+SQL> /
+
+1 row created.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                 
+---------- ---------------------------- --------------------------                                                                          
+        50 Development                                                                                                                      
+         0                                                                                                                                  
+        10 ACCOUNTING                   NEW YORK                                                                                            
+        20 RESEARCH                     DALLAS                                                                                              
+        30 SALES                        CHICAGO                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                              
+
+6 rows selected.
+
+SQL> select * from dept desc;
+select * from dept desc
+                   *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * dept
+  2  from
+  3  desc
+  4  ;
+select * dept
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  from dept
+  3* order by desc
+  4  /
+from dept
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename
+  2  from dept
+  3* order by desc
+SQL> /
+order by desc
+         *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select deptno
+  2  from dept
+  3* order by deptno
+SQL> /
+
+    DEPTNO                                                                                                                                  
+----------                                                                                                                                  
+         0                                                                                                                                  
+        10                                                                                                                                  
+        20                                                                                                                                  
+        30                                                                                                                                  
+        40                                                                                                                                  
+        50                                                                                                                                  
+
+6 rows selected.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                 
+---------- ---------------------------- --------------------------                                                                          
+        50 Development                                                                                                                      
+         0                                                                                                                                  
+        10 ACCOUNTING                   NEW YORK                                                                                            
+        20 RESEARCH                     DALLAS                                                                                              
+        30 SALES                        CHICAGO                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                              
+
+6 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select * from dept
+SQL> ed Day_1127_DeptInsertEx
+
+SQL> ed C:\DEV\sqlworkspaces\Day_1127_DeptInsertEx
+
+SQL> ed C:\DEV\sqlworkspaces\Day_1127_DeptInsertEx
+
+SQL> @C:\DEV\sqlworkspaces\Day_1127_DeptInsertEx
+  5  70
+  6  Education
+  7  Seoul
+  8  
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create table emp_10(id,name,salary,hiredate)
+  2  as select empno,ename,sal,hiredate from emp
+  3* where 1=2
+SQL> /
+
+Table created.
+
+SQL> select * from emp_10;
+
+no rows selected
+
+SQL> desc emp_10;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ ID                                                                                     NUMBER(4)
+ NAME                                                                                   VARCHAR2(10)
+ SALARY                                                                                 NUMBER(7,2)
+ HIREDATE                                                                               DATE
+
+SQL> desc emp;
+ Name                                                                          Null?    Type
+ ----------------------------------------------------------------------------- -------- ----------------------------------------------------
+ EMPNO                                                                         NOT NULL NUMBER(4)
+ ENAME                                                                                  VARCHAR2(10)
+ JOB                                                                                    VARCHAR2(9)
+ MGR                                                                                    NUMBER(4)
+ HIREDATE                                                                               DATE
+ SAL                                                                                    NUMBER(7,2)
+ COMM                                                                                   NUMBER(7,2)
+ DEPTNO                                                                                 NUMBER(2)
+
+SQL> select * from emp_10;
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into emp_10
+  2  select empno, ename, sal, hiredate
+  3  from emp
+  4* where deptno=10
+SQL> /
+
+3 rows created.
+
+SQL> select * from emp_10;
+
+        ID NAME                     SALARY HIREDATE                                                                                         
+---------- -------------------- ---------- --------                                                                                         
+      7782 CLARK                      2450 81/06/09                                                                                         
+      7839 KING                       5000 81/11/17                                                                                         
+      7934 MILLER                     1300 82/01/23                                                                                         
+
+SQL> create table copy_emp
+  2  as select * from emp;
+
+Table created.
+
+SQL> select * from copy_emp;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                     
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                     
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                     
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                     
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                     
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                     
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                     
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                     
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                     
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                     
+
+12 rows selected.
+
+SQL> insert into emp(empno, ename, job, hiredate, deptno)
+  2  values(9999,'HONG', 'Manager', sysdate, 40)
+  3  ;
+
+1 row created.
+
+SQL> update emp
+  2  set deptno=10
+  3  where ename='SCOTT';
+
+0 rows updated.
+
+SQL> ¤§¤·
+SP2-0042: unknown command "¤§¤·" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  MERGE INTO copy_emp c
+  2  USING emp e
+  3  ON (c.empno=e.empno)
+  4  WHEN MATCHED THEN
+  5  	update set
+  6  		c.ename = e.ename,
+  7  		c.job=e.job,
+  8  		c.hiredate=e.hiredate
+  9  		c.sal=e.sal
+ 10  		c.comm=e.comm
+ 11  		c.deptno=e.deptno
+ 12  		c.mgr=e.mgr
+ 13  WHEN NOT MATCHED THEN
+ 14* 	insert values(e.empno,e.ename,e.job,e.mgr,e.hiredate,e.sal,e.comm,e.deptno)
+SQL> /
+		c.sal=e.sal
+		*
+ERROR at line 9:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  MERGE INTO copy_emp c
+  2  USING emp e
+  3  ON (c.empno=e.empno)
+  4  WHEN MATCHED THEN
+  5  	update set
+  6  		c.ename = e.ename,
+  7  		c.job = e.job,
+  8  		c.hiredate = e.hiredate,
+  9  		c.sal = e.sal,
+ 10  		c.comm=e.comm,
+ 11  		c.deptno=e.deptno,
+ 12  		c.mgr=e.mgr
+ 13  WHEN NOT MATCHED THEN
+ 14* 	insert values(e.empno,e.ename,e.job,e.mgr,e.hiredate,e.sal,e.comm,e.deptno)
+SQL> /
+
+13 rows merged.
+
+SQL> select * from copy_emp
+  2  ;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                     
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                     
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                     
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                     
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                     
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                     
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                     
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                     
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                     
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                     
+      9999 HONG                 Manager                       19/11/27                               40                                     
+
+13 rows selected.
+
+SQL> spool off

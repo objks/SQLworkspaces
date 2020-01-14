@@ -1,0 +1,158 @@
+SQL> desc
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(2)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select e.empno, e.ename, e.job, d.dname, d.loc
+  2  from dept d, emp e
+  3* where d.deptno=e.deptno
+SQL> /
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7369 SMITH                CLERK              RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7499 ALLEN                SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+      7521 WARD                 SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7566 JONES                MANAGER            RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7654 MARTIN               SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+      7698 BLAKE                MANAGER            SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7782 CLARK                MANAGER            ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+      7839 KING                 PRESIDENT          ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+      7844 TURNER               SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7900 JAMES                CLERK              SALES                        
+CHICAGO                                                                         
+                                                                                
+      7902 FORD                 ANALYST            RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7934 MILLER               CLERK              ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+
+12 rows selected.
+
+SQL> save C:\DEV\sql\workspaces\emp_dept
+SP2-0110: Cannot create save file "C:\DEV\sql\workspaces\emp_dept.sql"
+SQL> save C:\DEV\sqlworkspaces\emp_dept
+Created file C:\DEV\sqlworkspaces\emp_dept.sql
+SQL> ed emp_dept
+
+SQL> @C:\DEV\sqlworkspaces\emp_dept
+SQL> select e.empno, e.ename, e.job, d.dname, d.loc
+  2  from dept d, emp e
+  3  where d.deptno=e.deptno
+  4  /
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7369 SMITH                CLERK              RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7499 ALLEN                SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+      7521 WARD                 SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7566 JONES                MANAGER            RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7654 MARTIN               SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+      7698 BLAKE                MANAGER            SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7782 CLARK                MANAGER            ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+      7839 KING                 PRESIDENT          ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+      7844 TURNER               SALESMAN           SALES                        
+CHICAGO                                                                         
+                                                                                
+
+     EMPNO ENAME                JOB                DNAME                        
+---------- -------------------- ------------------ ---------------------------- 
+LOC                                                                             
+--------------------------                                                      
+      7900 JAMES                CLERK              SALES                        
+CHICAGO                                                                         
+                                                                                
+      7902 FORD                 ANALYST            RESEARCH                     
+DALLAS                                                                          
+                                                                                
+      7934 MILLER               CLERK              ACCOUNTING                   
+NEW YORK                                                                        
+                                                                                
+
+12 rows selected.
+
+SQL> spool off

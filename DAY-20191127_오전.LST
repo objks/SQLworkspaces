@@ -1,0 +1,533 @@
+SQL> select sqrt(4) form dual;
+select sqrt(4) form dual
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select sqrt(3) from dual;
+
+   SQRT(3)                                                                      
+----------                                                                      
+1.73205081                                                                      
+
+SQL> select sqrt(4) from dual;
+
+   SQRT(4)                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  	ename, hiredate, sysdate, sysdate-hiredate as "Total Days", 
+  3  	trunc((sysdate-hredate) / 7) as "Weeks",
+  4  	round(mod((sysdate-hiredate),7), 0) as "Days"
+  5  from emp
+  6* order by
+SQL> /
+order by
+       *
+ERROR at line 6:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  	ename, hiredate, sysdate, sysdate-hiredate as "Total Days", 
+  3  	trunc((sysdate-hredate) / 7) as "Weeks",
+  4  	round(mod((sysdate-hiredate),7), 0) as "Days"
+  5  from emp
+  6* order by sysdate-hiredate desc
+SQL> /
+	trunc((sysdate-hredate) / 7) as "Weeks",
+	               *
+ERROR at line 3:
+ORA-00904: "HREDATE": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  	ename, hiredate, sysdate, sysdate-hiredate as "Total Days", 
+  3  	trunc((sysdate-hiredate) / 7) as "Weeks",
+  4  	round(mod((sysdate-hiredate), 7), 0) as "Days"
+  5  from emp
+  6* order by sysdate-hiredate desc
+SQL> /
+
+ENAME                HIREDATE SYSDATE  Total Days      Weeks       Days         
+-------------------- -------- -------- ---------- ---------- ----------         
+SMITH                80/12/17 19/11/27   14224.43       2032          0         
+ALLEN                81/02/20 19/11/27   14159.43       2022          5         
+WARD                 81/02/22 19/11/27   14157.43       2022          3         
+JONES                81/04/02 19/11/27   14118.43       2016          6         
+BLAKE                81/05/01 19/11/27   14089.43       2012          5         
+CLARK                81/06/09 19/11/27   14050.43       2007          1         
+TURNER               81/09/08 19/11/27   13959.43       1994          1         
+MARTIN               81/09/28 19/11/27   13939.43       1991          2         
+KING                 81/11/17 19/11/27   13889.43       1984          1         
+JAMES                81/12/03 19/11/27   13873.43       1981          6         
+FORD                 81/12/03 19/11/27   13873.43       1981          6         
+
+ENAME                HIREDATE SYSDATE  Total Days      Weeks       Days         
+-------------------- -------- -------- ---------- ---------- ----------         
+MILLER               82/01/23 19/11/27   13822.43       1974          4         
+
+12 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, add_months(hiredate, 5) as "5개월 후 날짜"
+  2  from emp
+  3  where deptno=10;
+  4* order by hiredate desc
+SQL> /
+order by hiredate desc
+      *
+ERROR at line 4:
+ORA-00911: invalid character 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, add_months(hiredate, 5) as "5개월 후 날짜"
+  2  from emp
+  3  where deptno=10
+  4* order by hiredate desc
+SQL> /
+
+ENAME                HIREDATE 5개월                                           
+-------------------- -------- --------                                          
+MILLER               82/01/23 82/06/23                                          
+KING                 81/11/17 82/04/17                                          
+CLARK                81/06/09 81/11/09                                          
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+	                  *
+ERROR at line 3:
+ORA-01821: date format not recognized 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor",
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+from emp
+      *
+ERROR at line 4:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc;
+SQL> /
+order by hiredate desc;
+                      *
+ERROR at line 6:
+ORA-00911: invalid character 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+	                  *
+ERROR at line 3:
+ORA-01821: date format not recognized 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+  7  /
+	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+	                  *
+ERROR at line 3:
+ORA-01821: date format not recognized 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal, 
+  2  	decode(
+  3  		job, 'ANALYIST', sal*1.1,
+  4  		'CLERK', sal*1.15,
+  5  		'MANAGER' sal*1.2, sal
+  6  	) as "d_sal"
+  7  from emp
+  8* order by sal desc
+SQL> /
+		'MANAGER' sal*1.2, sal
+		          *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal, 
+  2  	decode(
+  3  		job, 'ANALYIST', sal*1.1,
+  4  		'CLERK', sal*1.15,
+  5  		'MANAGER', sal*1.2, sal
+  6  	) as "d_sal"
+  7  from emp
+  8* order by sal desc
+SQL> /
+
+     EMPNO ENAME                JOB                       SAL      d_sal        
+---------- -------------------- ------------------ ---------- ----------        
+      7839 KING                 PRESIDENT                5000       5000        
+      7902 FORD                 ANALYST                  3000       3000        
+      7566 JONES                MANAGER                  2975       3570        
+      7698 BLAKE                MANAGER                  2850       3420        
+      7782 CLARK                MANAGER                  2450       2940        
+      7499 ALLEN                SALESMAN                 1600       1600        
+      7844 TURNER               SALESMAN                 1500       1500        
+      7934 MILLER               CLERK                    1300       1495        
+      7654 MARTIN               SALESMAN                 1250       1250        
+      7521 WARD                 SALESMAN                 1250       1250        
+      7900 JAMES                CLERK                     950     1092.5        
+
+     EMPNO ENAME                JOB                       SAL      d_sal        
+---------- -------------------- ------------------ ---------- ----------        
+      7369 SMITH                CLERK                     800        920        
+
+12 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+	to_char(hiredate, 'YYYY"년" MM"월" DD"일"') as "t_kor"
+	                  *
+ERROR at line 3:
+ORA-01821: date format not recognized 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY MM DD') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+
+ENAME                HIREDATE t_hiredate                                        
+-------------------- -------- --------------------------------                  
+t_kor                                                                           
+--------------------                                                            
+MILLER               82/01/23 23 1�� 1982                                       
+1982 01 23                                                                      
+                                                                                
+KING                 81/11/17 17 11�� 1981                                      
+1981 11 17                                                                      
+                                                                                
+CLARK                81/06/09 9 6�� 1981                                        
+1981 06 09                                                                      
+                                                                                
+
+SQL> col t_hiredate format a16;
+SQL> r
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY MM DD') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+
+ENAME                HIREDATE t_hiredate       t_kor                            
+-------------------- -------- ---------------- --------------------             
+MILLER               82/01/23 23 1�� 1982      1982 01 23                       
+KING                 81/11/17 17 11�� 1981     1981 11 17                       
+CLARK                81/06/09 9 6�� 1981       1981 06 09                       
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal,
+  2  	CASE
+  3  		WHEN 'ANALYST' THEN sal*1.1
+  4  		WHEN 'CLERK' THEN sal*1.15
+  5  		WHEN 'MANAGER' THEN sal*1.2
+  6  		ELSE sal
+  7  	END
+  8  from emp
+  9* order by sal desc
+SQL> /
+		WHEN 'ANALYST' THEN sal*1.1
+		               *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal,
+  2  	CASE
+  3  		WHEN 'ANALYS' THEN sal*1.1
+  4  		WHEN 'CLERK' THEN sal*1.15
+  5  		WHEN 'MANAGER' THEN sal*1.2
+  6  		ELSE sal
+  7  	END
+  8  from emp
+  9* order by sal desc
+SQL> /
+		WHEN 'ANALYS' THEN sal*1.1
+		              *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal,
+  2  	CASE
+  3  		WHEN 'ANALYST' THEN sal*1.1
+  4  		WHEN 'CLERK' THEN sal*1.15
+  5  		WHEN 'MANAGER' THEN sal*1.2
+  6  		ELSE sal
+  7  	END
+  8  from emp
+  9* order by sal desc
+SQL> /
+		WHEN 'ANALYST' THEN sal*1.1
+		               *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, ename, job, sal,
+  2  	CASE job
+  3  		WHEN 'ANALYST' THEN sal*1.1
+  4  		WHEN 'CLERK' THEN sal*1.15
+  5  		WHEN 'MANAGER' THEN sal*1.2
+  6  		ELSE sal
+  7  	END
+  8  from emp
+  9* order by sal desc
+SQL> /
+
+     EMPNO ENAME                JOB                       SAL                   
+---------- -------------------- ------------------ ----------                   
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2EL
+--------------------------------------------------------------------------------
+      7839 KING                 PRESIDENT                5000                   
+                                                                            5000
+                                                                                
+      7902 FORD                 ANALYST                  3000                   
+                                                                            3300
+                                                                                
+      7566 JONES                MANAGER                  2975                   
+                                                                            3570
+                                                                                
+
+     EMPNO ENAME                JOB                       SAL                   
+---------- -------------------- ------------------ ----------                   
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2EL
+--------------------------------------------------------------------------------
+      7698 BLAKE                MANAGER                  2850                   
+                                                                            3420
+                                                                                
+      7782 CLARK                MANAGER                  2450                   
+                                                                            2940
+                                                                                
+      7499 ALLEN                SALESMAN                 1600                   
+                                                                            1600
+                                                                                
+
+     EMPNO ENAME                JOB                       SAL                   
+---------- -------------------- ------------------ ----------                   
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2EL
+--------------------------------------------------------------------------------
+      7844 TURNER               SALESMAN                 1500                   
+                                                                            1500
+                                                                                
+      7934 MILLER               CLERK                    1300                   
+                                                                            1495
+                                                                                
+      7654 MARTIN               SALESMAN                 1250                   
+                                                                            1250
+                                                                                
+
+     EMPNO ENAME                JOB                       SAL                   
+---------- -------------------- ------------------ ----------                   
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2EL
+--------------------------------------------------------------------------------
+      7521 WARD                 SALESMAN                 1250                   
+                                                                            1250
+                                                                                
+      7900 JAMES                CLERK                     950                   
+                                                                          1092.5
+                                                                                
+      7369 SMITH                CLERK                     800                   
+                                                                             920
+                                                                                
+
+12 rows selected.
+
+SQL> set linesize 140;
+SQL> r
+  1  select empno, ename, job, sal,
+  2  	CASE job
+  3  		WHEN 'ANALYST' THEN sal*1.1
+  4  		WHEN 'CLERK' THEN sal*1.15
+  5  		WHEN 'MANAGER' THEN sal*1.2
+  6  		ELSE sal
+  7  	END
+  8  from emp
+  9* order by sal desc
+
+     EMPNO ENAME                JOB                       SAL                                                                               
+---------- -------------------- ------------------ ----------                                                                               
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2ELSESALEND                                                    
+----------------------------------------------------------------------------------------                                                    
+      7839 KING                 PRESIDENT                5000                                                                               
+                                                                                    5000                                                    
+                                                                                                                                            
+      7902 FORD                 ANALYST                  3000                                                                               
+                                                                                    3300                                                    
+                                                                                                                                            
+      7566 JONES                MANAGER                  2975                                                                               
+                                                                                    3570                                                    
+                                                                                                                                            
+
+     EMPNO ENAME                JOB                       SAL                                                                               
+---------- -------------------- ------------------ ----------                                                                               
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2ELSESALEND                                                    
+----------------------------------------------------------------------------------------                                                    
+      7698 BLAKE                MANAGER                  2850                                                                               
+                                                                                    3420                                                    
+                                                                                                                                            
+      7782 CLARK                MANAGER                  2450                                                                               
+                                                                                    2940                                                    
+                                                                                                                                            
+      7499 ALLEN                SALESMAN                 1600                                                                               
+                                                                                    1600                                                    
+                                                                                                                                            
+
+     EMPNO ENAME                JOB                       SAL                                                                               
+---------- -------------------- ------------------ ----------                                                                               
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2ELSESALEND                                                    
+----------------------------------------------------------------------------------------                                                    
+      7844 TURNER               SALESMAN                 1500                                                                               
+                                                                                    1500                                                    
+                                                                                                                                            
+      7934 MILLER               CLERK                    1300                                                                               
+                                                                                    1495                                                    
+                                                                                                                                            
+      7654 MARTIN               SALESMAN                 1250                                                                               
+                                                                                    1250                                                    
+                                                                                                                                            
+
+     EMPNO ENAME                JOB                       SAL                                                                               
+---------- -------------------- ------------------ ----------                                                                               
+CASEJOBWHEN'ANALYST'THENSAL*1.1WHEN'CLERK'THENSAL*1.15WHEN'MANAGER'THENSAL*1.2ELSESALEND                                                    
+----------------------------------------------------------------------------------------                                                    
+      7521 WARD                 SALESMAN                 1250                                                                               
+                                                                                    1250                                                    
+                                                                                                                                            
+      7900 JAMES                CLERK                     950                                                                               
+                                                                                  1092.5                                                    
+                                                                                                                                            
+      7369 SMITH                CLERK                     800                                                                               
+                                                                                     920                                                    
+                                                                                                                                            
+
+12 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, hiredate, 
+  2  	to_char(hiredate, 'fmDD Month YYYY') as "t_hiredate",
+  3  	to_char(hiredate, 'YYYY MM DD') as "t_kor"
+  4  from emp
+  5  where deptno=10
+  6* order by hiredate desc
+SQL> /
+
+ENAME                HIREDATE t_hiredate       t_kor                                                                                        
+-------------------- -------- ---------------- --------------------                                                                         
+MILLER               82/01/23 23 1�� 1982      1982 01 23                                                                                   
+KING                 81/11/17 17 11�� 1981     1981 11 17                                                                                   
+CLARK                81/06/09 9 6�� 1981       1981 06 09                                                                                   
+
+SQL> 

@@ -1,0 +1,32 @@
+SQL> conn /as sysdba
+Connected.
+SQL> create user hgd identified by thief;
+
+User created.
+
+SQL> conn hgd/thief
+ERROR:
+ORA-01045: user HGD lacks CREATE SESSION privilege; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn /as sysdba
+Connected.
+SQL> grant connect, resource to hgd;
+
+Grant succeeded.
+
+SQL> conn hgd/thief
+Connected.
+SQL> select * from tab;
+
+no rows selected
+
+SQL> desc system_privilege_map;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRIVILEGE                                 NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(40)
+ PROPERTY                                  NOT NULL NUMBER
+
+SQL> 
