@@ -1,0 +1,16 @@
+< 필요한 SQL >
+1. 멤버 삽입 SQL
+INSERT INTO member VALUES(?,?,?,?,?,?)
+
+2. 멤버 삭제 SQL
+DELETE FROM member WHERE id = ?
+
+3. 전체 멤버 ID 보기 SQL
+SELECT id FROM member
+
+4. 해당 ID 회원정보 보기
+SELECT PASSWORD FROM member WHERE id=?
+
+5. 로그인을 위해 로그인 ID의 패스워드를 가져오는 SQL
+
+6. 
