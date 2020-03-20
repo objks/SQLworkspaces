@@ -39,4 +39,4 @@ ORDER BY re_ref DESC, re_step
 LIMIT 0,5;
 
 /* 이름에 '관리'가 들어가는 작성자 이름만 출력 */
-select board_name FROM board WHERE board_name LIKE '%관리%';product
+select board_name FROM board WHERE board_name LIKE '%관리%';productkkktestdbperformance_schemanfc
