@@ -45,3 +45,10 @@ select * from(select rownum rn, tbl_board.* from tbl_board where rownum <= 10000
 select BNO, TITLE,WRITER from TBL_BOARD where WRITER like '관리자';
 
 select * from(select rownum rn, tbl_board.* from tbl_board where writer='user00' and rownum <= 10 * 1);
+
+select count(*) from tbl_board;
+
+select count(*) from TBL_BOARD where WRITER like '관리자';
+
+-- 글번호 3 ~ 200까지 구간검색
+select count(*) from TBL_BOARD where BNO between 3 and 200;
