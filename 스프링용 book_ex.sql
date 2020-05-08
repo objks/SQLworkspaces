@@ -52,3 +52,14 @@ select count(*) from TBL_BOARD where WRITER like '관리자';
 
 -- 글번호 3 ~ 200까지 구간검색
 select count(*) from TBL_BOARD where BNO between 3 and 200;
+
+select  rno, bno, reply, replyer, replydate, updatedate
+ from 
+   (
+    select /*+INDEX(admin_memo idx_reply) */ 
+      rno, bno, reply, replyer, replyDate, updatedate
+    from TBL_REPLY
+    where bno =  73750
+    and rno > 0
+    and rno <= 1 * 1
+   ) where rno > 1 * 1;
